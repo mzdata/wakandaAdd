@@ -1,11 +1,12 @@
 <?php
 
+
 define ("ENV",   "DEV");
 
-define ("SERVER",   "172.26.192.225");                                  # localhost
-define ("USERNAME", "root");
-define ("PASSWORD", "");            # ops_KatrinA_20130205
-define ("DBNAME",   "db_auth");
+define ("SERVER",   "rm-8vbszau5ftled8pn7.mysql.zhangbei.rds.aliyuncs.com");                                  # localhost
+define ("USERNAME", "mzwriter");
+define ("PASSWORD", "i8T40uq2FHENkQRp");            # ops_KatrinA_20130205
+define ("DBNAME",   "wakanda_api");
 
 
 

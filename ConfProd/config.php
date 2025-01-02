@@ -1,5 +1,6 @@
 <?php
 
+
     return array(
         'TMPL_ENGINE_TYPE' => 'Smarty',
         'TMPL_ENGINE_CONFIG' => array(
@@ -11,10 +12,10 @@
         
         # MySQL config
         'DB_TYPE'    => 'mysqli', 
-        'DB_HOST'    => '127.0.0.1',  
-        'DB_NAME'    => 'db_auth',
+        'DB_HOST'    => 'rm-8vbszau5ftled8pn7.mysql.zhangbei.rds.aliyuncs.com',  
+        'DB_NAME'    => 'wakanda_api',
         'DB_USER'    => 'root',
-        'DB_PWD'     => '',            # ops_work_20130205
+        'DB_PWD'     => 'i8T40uq2FHENkQRp',            # ops_work_20130205
         'DB_PORT'    => '3306',
         'DB_PREFIX'  => '',
         'DB_FIELDS_CACHE'=>    false,
