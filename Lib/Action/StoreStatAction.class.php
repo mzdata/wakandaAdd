@@ -20,6 +20,97 @@ include_once 'Conf/authorization_config.php';
   createdAt  纪录创建时间 */
 
 class StoreStatAction extends  Action {
+
+	function storeLog() {
+		set_time_limit(0);
+		$storeLogModel = D("StoreLog"); 
+		$storeStatModel = D("StoreStat");
+		$list = $storeStatModel->select();
+		
+		date_default_timezone_set('PRC');
+
+		$today = date("Y-m-d",time());
+
+		$resultArr = array();
+		foreach ($list as $row) {
+
+			print "start tenant_code=$tenant_code\n";
+			$tenant_code=$row["tenant_code"];
+			$tenant_code=trim($tenant_code);
+
+			$sql="SELECT 
+    table_schema AS 'doris_db',
+    table_name  ,
+    ROUND((ifnull(data_length,0) + ifnull(index_length,0)) / 1024 / 1024, 2) AS 'storage'
+FROM 
+    information_schema.tables
+WHERE 
+    table_schema = 'timestone_".$tenant_code."'  ";
+			$tmpList = Util::getDorisDbResult($tenant_code,$sql);
+			$doris_db="";
+			foreach ($tmpList as $row2) {
+				$doris_db=$row2["doris_db"];
+				$table_name=$row2["table_name"];
+				$storage=$row2["storage"];
+
+				$resultArr[$table_name]["storage"]=$storage;
+			}
+
+			
+			$sql=" SELECT 
+    table_schema AS 'doris_db',
+    table_name ,
+    table_rows
+FROM 
+    information_schema.tables
+WHERE 
+    table_schema = 'timestone_".$tenant_code."'  ";
+
+			$tmpList = Util::getDorisDbResult($tenant_code,$sql);
+			foreach ($tmpList as $row2) {
+				$doris_db=$row2["doris_db"];
+				$table_name=$row2["table_name"];
+				$table_rows=$row2["table_rows"];
+
+				$resultArr[$table_name]["table_rows"]=$table_rows;
+			}
+
+			foreach($resultArr as $table_name=>$row2){
+				
+				$storage=$row2["storage"];
+				$table_rows=$row2["table_rows"];
+
+				$count = $storeLogModel->where("created_at='$today' and table_name='$table_name' and tenant_code='$tenant_code'")->count();
+				if($count==0){
+					
+					$data = array(); 
+					$data["tenant_code"] = $tenant_code;
+					$data["doris_db"] = $doris_db;
+					$data["table_name"] = $table_name; 
+					$data["storage"] = $storage;
+					$data["rows_number"] = $table_rows; 
+					$data["updated_at"] =   date("Y-m-d H:i:s");  
+					$data["created_at"] =  date("Y-m-d H:i:s");  
+					$su =  $storeLogModel->data($data)->add();
+				}
+
+
+
+			}
+
+
+ 
+				print "finish tenant_code=$tenant_code\n";
+		}//tenant_code
+
+
+		
+		print "finish\n";
+
+		
+	}
+
+
 	function stripslashesx($value){
 		return stripslashes($value);
 	}

@@ -59,3 +59,9 @@ define ("SERVER_MODEL",   "127.0.0.1");                                  # local
 define ("USERNAME_MODEL", "root");
 define ("PASSWORD_MODEL", "");            
 define ("DBNAME_MODEL",   "db_speech_model");
+
+
+define ("SERVER_DORIS",   "172.26.192.241");   
+define ("PORT_DORIS",   "19030");                                  # localhost
+define ("USERNAME_DORIS", "rw_data_sync");
+define ("PASSWORD_DORIS", "mzdata_bi");   

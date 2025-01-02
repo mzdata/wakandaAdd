@@ -11,6 +11,37 @@ include_once 'Conf/authorization_config.php';
 
 class Util {
 
+
+	
+	
+	public static function getDorisDbResult($tenant_code,$sql){
+		
+		$Database="timestone_".$tenant_code;
+		$link = mysqli_connect ( SERVER_DORIS.":".PORT_DORIS, USERNAME_DORIS, PASSWORD_DORIS ) ;
+		if(!$link){
+			return "error";
+		}
+		mysqli_query($link,"set names 'utf8'");
+		mysqli_select_db($link, $Database );
+		
+		$result = mysqli_query ( $link,$sql );
+	  
+		$retArr = array();
+		if ($result) {
+			while ($row = mysqli_fetch_array ( $result ,MYSQLI_ASSOC )) {
+
+			
+				$retArr[] = $row ;
+			}
+			mysqli_free_result ( $result );
+		}
+		mysqli_close($link); 
+		return $retArr; 
+
+	}
+
+
+	
 	public static function EnPwd($password){
 		$command = "\"C:\Program Files\Java\jdk-1.8\bin\java.exe\" -cp D:/wamp7/www/wakandaAdd/tools/java EnPwd  $password\n"; 
 		if(MYBACKGROUPD>=2){
