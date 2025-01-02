@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>编辑数据</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/layout.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/default.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.css"/>
+     <script type="text/javascript" src="__PUBLIC__/js/jquery/1.8.2/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/libs/jquery.qtip-1.0.0-rc3.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/libs/jquery.validate.min.js"></script> 
+        <script type="text/javascript">
+jQuery.noConflict();
+</script>
+<link rel="stylesheet" href="__PUBLIC__/css/themes/base/jquery-ui.css" type="text/css" media="all" />   
+<script src="__PUBLIC__/js/jquery/1.4.2/jquery-1.4.2.min.js" type="text/javascript"></script>   
+<script src="__PUBLIC__/js/libs/jquery-ui.min.1.8.10.js" type="text/javascript"></script>  
+
+    <style>
+   	.modal_container{
+   		margin-top:40px;
+		padding:0;
+   	}
+	.mainForm{
+		margin:10px;
+	}
+	.field-group{
+		vertical-align:middle;
+	}
+	.field-group  label{
+		margin:0 18px 0 0;
+	}
+	input[type="radio"]{
+		margin:0;
+	}
+	</style>
+    <script type="text/javascript"><!--
+       function startSelect(objIdStr,objValue)
+    {
+
+		      $.post("__APP__/Ajax/getSelect", {
+                    objId: objIdStr,
+                    myselectId:objValue
+                }, function(data, st){
+                  //  var dataObj = eval("(" + data + ")");
+                    //console.log(dataObj);
+                     $( data).appendTo("#"+objIdStr); 
+                }) 
+    } 
+    
+        
+    function checkEmpty(obj ,objTitle)
+    {
+   		 objValue = obj.val();
+    	if(objValue==null||objValue=="") 
+    	{
+    		alert(objTitle+"不能为空!");
+    		obj.focus();
+    		return true;
+    	}
+    	return false;
+    }
+    
+    
+	$(function() {
+			
+		 $( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+		 
+		 		 $("#add_form").submit(function(e){
+ 
+  			 if(checkEmpty($("#editData_tenant_name") ,"租户名称")) return false;
+if(checkEmpty($("#editData_name") ,"筛选项名")) return false;
+
+  				
+  				return true;
+			});
+	});
+{literal}
+{/literal}
+    --></script>
+</head>
+<body>
+    <div class="modal_container" style="">
+        <form class="mainForm" action="?act=edit" method="post" id="add_form">
+            <fieldset>
+                <legend style="color:#555;">编辑数据</legend>
+              
+             
+
+				
+<input type=hidden name="editData_id" value="{$pe.editData.id}" >
+<div class="field-group">
+<label class="required title" for="editData_tenant_code" style="margin-right:19px;"><font color=red>*</font>租户编码:</label>
+<input name="editData_tenant_code" type="text" class="medium-140" id="editData_tenant_code" value="{$pe.editData.tenant_code}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_tenant_name" style="margin-right:19px;"><font color=red>*</font>租户名称:</label>
+<input name="editData_tenant_name" type="text" class="medium-140" id="editData_tenant_name" value="{$pe.editData.tenant_name}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_type" style="margin-right:19px;"><font color=red>*</font>筛选项类型:</label>
+<input name="editData_type" type="text" class="medium-140" id="editData_type" value="{$pe.editData.type}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_enum" style="margin-right:19px;"><font color=red>*</font>筛选项枚举值:</label>
+<input name="editData_enum" type="text" class="medium-140" id="editData_enum" value="{$pe.editData.enum}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_name" style="margin-right:19px;"><font color=red>*</font>筛选项名:</label>
+<input name="editData_name" type="text" class="medium-140" id="editData_name" value="{$pe.editData.name}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_value" style="margin-right:19px;"><font color=red>*</font>筛选项值:</label>
+<input name="editData_value" type="text" class="medium-140" id="editData_value" value="{$pe.editData.value}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_deleted" style="margin-right:19px;"><font color=red>*</font>是否已删除:</label>
+<input name="editData_deleted" type="text" class="medium-140" id="editData_deleted" value="{$pe.editData.deleted}"/> 
+ </div> 
+
+
+
+                <div style="float:left;width:600px;">
+                    <div style="text-align:center;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" id="add" class="btn btn-primary" value="提交"/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-danger" onclick="javascript:window.close()">取消</a>
+                    </div>
+                </div>
+           </fieldset>
+        </form>
+   </div>
+</body>
+</html>

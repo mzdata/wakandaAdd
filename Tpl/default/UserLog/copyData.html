@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>复制数据</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/layout.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/default.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.css"/>
+     <script type="text/javascript" src="__PUBLIC__/js/jquery/1.8.2/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/libs/jquery.qtip-1.0.0-rc3.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/libs/jquery.validate.min.js"></script> 
+        <script type="text/javascript">
+jQuery.noConflict();
+</script>
+<link rel="stylesheet" href="__PUBLIC__/css/themes/base/jquery-ui.css" type="text/css" media="all" />   
+<script src="__PUBLIC__/js/jquery/1.4.2/jquery-1.4.2.min.js" type="text/javascript"></script>   
+<script src="__PUBLIC__/js/libs/jquery-ui.min.1.8.10.js" type="text/javascript"></script>  
+
+    <style>
+   	.modal_container{
+   		margin-top:40px;
+		padding:0;
+   	}
+	.mainForm{
+		margin:10px;
+	}
+	.field-group{
+		vertical-align:middle;
+	}
+	.field-group  label{
+		margin:0 18px 0 0;
+	}
+	input[type="radio"]{
+		margin:0;
+	}
+	</style>
+    <script type="text/javascript"><!--
+       function startSelect(objIdStr,objValue)
+    {
+
+		      $.post("__APP__/Ajax/getSelect", {
+                    objId: objIdStr,
+                    myselectId:objValue
+                }, function(data, st){
+                  //  var dataObj = eval("(" + data + ")");
+                    //console.log(dataObj);
+                     $( data).appendTo("#"+objIdStr); 
+                }) 
+    } 
+    
+        
+    function checkEmpty(obj ,objTitle)
+    {
+   		 objValue = obj.val();
+    	if(objValue==null||objValue=="") 
+    	{
+    		alert(objTitle+"不能为空!");
+    		obj.focus();
+    		return true;
+    	}
+    	return false;
+    }
+    
+    
+	$(function() {
+			
+		 $( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+		 
+		 		 $("#add_form").submit(function(e){
+ 
+  			 if(checkEmpty($("#editData_user_name") ,"user_name")) return false;
+
+  				
+  				return true;
+			});
+	});
+{literal}
+{/literal}
+    --></script>
+</head>
+<body>
+    <div class="modal_container" style="">
+        <form class="mainForm" action="?act=edit" method="post" id="add_form">
+            <fieldset>
+                <legend style="color:#555;">复制数据</legend>
+              
+             
+
+				
+<input type=hidden name="editData_id" value="{$pe.editData.id}" >
+<div class="field-group">
+<label class="required title" for="editData_tenant_code" style="margin-right:19px;"><font color=red>*</font>tenant_code:</label>
+<input name="editData_tenant_code" type="text" class="medium-140" id="editData_tenant_code" value="{$pe.editData.tenant_code}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_user" style="margin-right:19px;"><font color=red>*</font>user:</label>
+<input name="editData_user" type="text" class="medium-140" id="editData_user" value="{$pe.editData.user}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_user_name" style="margin-right:19px;"><font color=red>*</font>user_name:</label>
+<input name="editData_user_name" type="text" class="medium-140" id="editData_user_name" value="{$pe.editData.user_name}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_type" style="margin-right:19px;"><font color=red>*</font>类型:</label>
+<input name="editData_type" type="text" class="medium-140" id="editData_type" value="{$pe.editData.type}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_router" style="margin-right:19px;"><font color=red>*</font>router:</label>
+<input name="editData_router" type="text" class="medium-140" id="editData_router" value="{$pe.editData.router}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_des" style="margin-right:19px;"><font color=red>*</font>des:</label>
+<input name="editData_des" type="text" class="medium-140" id="editData_des" value="{$pe.editData.des}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_update_time" style="margin-right:19px;"><font color=red>*</font>update_time:</label>
+
+				  
+			<input  name="editData_update_time"  type="text" class="datepicker"   id="editData_update_time"  value="{$pe.editData.update_time}"/> 
+			   </div> 
+			  
+<div class="field-group">
+<label class="required title" for="editData_detail" style="margin-right:19px;"><font color=red>*</font>用户日志详情:</label>
+<input name="editData_detail" type="text" class="medium-140" id="editData_detail" value="{$pe.editData.detail}"/> 
+ </div> 
+
+
+
+                <div style="float:left;width:600px;">
+                    <div style="text-align:center;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" id="add" class="btn btn-primary" value="提交"/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-danger" onclick="javascript:window.close()">取消</a>
+                    </div>
+                </div>
+           </fieldset>
+        </form>
+   </div>
+</body>
+</html>

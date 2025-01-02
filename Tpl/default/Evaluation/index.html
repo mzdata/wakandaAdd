@@ -1,0 +1,621 @@
+{extends file="../Public/header.html"}     
+{block PageCss}
+<style type="text/css">
+    .hide{
+        display:none;
+    }   
+</style>
+{/block}
+{block PageJavaScript}
+    {literal}
+    <!--GRS 2013-5-10-->
+    <script type="text/javascript" src="__PUBLIC__/js/jquery/1.8.2/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/libs/jquery.qtip-1.0.0-rc3.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/libs/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/bootstrap/bootstrap-modal.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/bootstrap/bootstrap-transition.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/main.js"></script>
+   <script type="text/javascript" src="__PUBLIC__/js/setfields.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/FF.js"></script>
+    <script type="text/javascript">
+     {/literal}	
+	 
+        var current_system = "{$pe.current_system}";
+	{literal}	
+        $(function(){
+          $(".tbl1 tr").click(function(){
+          	 bgcolor = $(this).css("background-color") ;
+          	 reg = /255/gi;
+          	 
+          	 if(reg.test(bgcolor))
+          	 {
+          		 $(this).css({"background-color":""});
+          	 }
+          	 else
+          	 {
+    			$(this).css({"background-color":"yellow"});
+    		}
+  		  });
+           
+            $('.tbl1 a[title]').qtip({
+                style: {
+                    width: {
+                        max: 700,
+                        min: 200
+                    },
+                    name: 'blue',
+                    tip: true
+                },
+                content: {
+                    text: false
+                },
+                position: {
+                    corner: {
+                        tooltip: 'topLeft',
+                        target: 'bottomLeft'
+                    },
+                    adjust: {
+                        resize: true,
+                        scroll: true
+                    }
+                },
+            });
+            
+            var t = '';
+            $("#search").keyup(function(){
+                clearTimeout(t);  
+                t = setTimeout(search,500);
+            });
+
+            function search(){ //搜索
+            
+                var content = $.trim($("#search").val());//输入框值去空格，并变小写
+                if(content.length > 0){     
+                    var result = $(".tbl1 tbody tr").filter(":contains("+content+")");//选出含有搜索内容的
+                    if(current_system == 'all'){
+                        result.show();
+                    }
+                    else{
+                        result.each(function(i){
+                            if($(this).find("td:eq(2)").text() == current_system){
+                                $(this).show();
+                            }else{
+                                $(this).hide(); 
+                            }   
+                        });
+                    }                   
+                    $(".tbl1 tbody tr").filter(":not(:contains("+content+"))").hide();//选出含有搜索内容的
+                }
+                else{ 
+                    if(current_system == 'all'){
+                        $(".tbl1 tbody tr").show();
+                    }
+                    else{
+                        $(".tbl1 tbody tr").each(function(i){
+                            if($(this).find("td:eq(2)").text() == current_system){
+                                $(this).show();
+                            }else{
+                                $(this).hide();
+                            }
+                        });
+                    }
+                }
+            }//search
+        })
+      
+              
+        
+        $(function(){
+            $(".tbl1 tbody tr").mouseover(function(){
+                if (!$(this).hasClass("header")) {
+                    $(this).addClass("over");
+                }
+            }).mouseout(function(){
+                $(this).removeClass("over");
+            })
+        })
+        
+        //显示所有项
+        function get_all_Data(){
+            $(".menu_title2 a").removeClass("selected");
+            $(".menu_title2 a:first").addClass("selected");
+            current_system = 'all';
+            $('.tbl1 tbody tr').show();
+        }
+        
+        //按系统筛选
+        function get_Data_by_system(system_name){
+            $(".menu_title2 a").removeClass("selected");
+            $(".menu_title2 :contains("+system_name+")").addClass("selected");
+            current_system = system_name;
+			 
+            $('.tbl1 tbody tr').each(function(i){//搜寻表格里的每一个区间
+                if($(this).find("td:eq(2)").text() == system_name){
+                    $(this).show();
+                }else{
+                    $(this).hide(); 
+                }   
+            });
+        }
+              //添加系统数据弹窗
+        function get_order_result(FFSearch,searchkey,params){
+          
+		  document.location = '__APP__/Evaluation/index?orderby='+params+'&'+FFSearch+'&searchkey='+searchkey;
+        }      
+          
+        //添加系统数据弹窗
+        function add_system(params){
+      
+            window.open ('__APP__/System/add?params='+params,'newwindow',"height=600,width=800");
+          
+		}     
+        
+        //添加数据弹窗
+        function add_Data(params){
+          
+            window.open ('__APP__/Evaluation/add?params='+params,'newwindow',"height=600,width=800");
+        
+		}
+        //编辑数据弹窗
+        function edit_data(params,pageWhere){
+      
+            window.open ('__APP__/Evaluation/edit?params='+params+"&pageWhere="+pageWhere,'newwindow',"height=600,width=800");
+         
+	    }
+	      function copy_data(params,pageWhere){
+      
+            window.open ('__APP__/Evaluation/copyData?params='+params+"&pageWhere="+pageWhere,'newwindow',"height=600,width=800");
+         
+	    }  
+	    	    
+	 function showMyTools(obj, objIdStr,objValue) {
+	   
+		$('#div_show_mytools').css("left", obj.offset().left);
+		$('#div_show_mytools').css("top", obj.offset().top + obj.outerHeight());
+		$('#div_show_mytools').css("position", "absolute");
+		//ajax 获得必要数据 
+		
+		      $.post("__APP__/Ajax/getSearchShow", {
+                    objId: objIdStr,
+                    myselectId:objValue
+                }, function(data, st){
+                  //  var dataObj = eval("(" + data + ")");
+                    //console.log(dataObj);
+                     $("#indexShowDetail").html(data);
+					$('#div_show_mytools').show(); 
+                }) 
+	}
+
+	function hideDiv()
+	{
+		 $('#div_show_mytools').hide(); 
+	}
+	
+	   	$(function(){
+			$(".close").click(function(){
+                $("#div_show_mytools").hide(); 
+            });
+		})
+    </script>
+    {/literal}
+{/block}
+{block PageHeader}
+    <title> 评价数据管理</title>
+{/block}
+{block PageBody}
+    <div id="top_nav2">
+        <div class="left">{$pe.nav}</div>
+        <form method="GET" action="__APP__/Evaluation/index?cmd=search">
+            <div class="search2">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-search"></i></span>
+                    <input class="span2" id="inputIcon" type="text" style="margin:0;" name="searchkey"/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="body_container">
+         {include file="../Public/left.html"}  
+        <div class="body_middle">
+            <div class="body_nav">
+                <div class="left">
+                    评价数据管理 (合计{$pe.count})
+                </div>    
+                <!--
+					 <div class="left">
+                         <a class="orderbtn" onclick="showMyFFTools($(this))">【过滤器】</a>  
+                </div> 
+				  <div class="left">
+                         <a class="orderbtn" onclick="showMySetFieldTools($(this))">【设置显示字段】</a>
+                </div> 
+                   <div class="left"> 
+                过滤器: {$pe.FF}
+                </div>
+                -->
+                <div class="right">
+                    <a class="addbtn" onclick="add_Data('user_id')">添加新数据</a>
+                </div>
+	 
+            </div>
+            <div id="msg_container"></div>
+            <div class="clr">
+               
+                <table class="tbl1" width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr class="header"> 
+                            
+		{if $pe.showFieldsArr.id ==1}
+
+		<td align="center"><a   onclick="get_order_result('id')"> id </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.evaluation_time ==1}
+
+		<td align="center"><a   onclick="get_order_result('evaluation_time')"> 评价时间 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.evaluation_tags ==1}
+
+		<td align="center"><a   onclick="get_order_result('evaluation_tags')"> 评价标签 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.evaluation_details ==1}
+
+		<td align="center"><a   onclick="get_order_result('evaluation_details')"> 评价详情 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.star_rating ==1}
+
+		<td align="center"><a   onclick="get_order_result('star_rating')"> 星级分 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.taste_rating ==1}
+
+		<td align="center"><a   onclick="get_order_result('taste_rating')"> 口味分 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.environment_rating ==1}
+
+		<td align="center"><a   onclick="get_order_result('environment_rating')"> 环境分 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.service_rating ==1}
+
+		<td align="center"><a   onclick="get_order_result('service_rating')"> 服务分 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.category_rating ==1}
+
+		<td align="center"><a   onclick="get_order_result('category_rating')"> 品类分 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.ingredient_rating ==1}
+
+		<td align="center"><a   onclick="get_order_result('ingredient_rating')"> 食材分 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.cost_performance_rating ==1}
+
+		<td align="center"><a   onclick="get_order_result('cost_performance_rating')"> 性价比分 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.view_count ==1}
+
+		<td align="center"><a   onclick="get_order_result('view_count')"> 浏览人数 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.city ==1}
+
+		<td align="center"><a   onclick="get_order_result('city')"> 城市 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.store_name ==1}
+
+		<td align="center"><a   onclick="get_order_result('store_name')"> 评价门店 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.store_meituan_id ==1}
+
+		<td align="center"><a   onclick="get_order_result('store_meituan_id')"> 门店美团id </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.authorization_number ==1}
+
+		<td align="center"><a   onclick="get_order_result('authorization_number')"> 授权号 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.group_buying_id ==1}
+
+		<td align="center"><a   onclick="get_order_result('group_buying_id')"> 团购id </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.group_buying_evaluation ==1}
+
+		<td align="center"><a   onclick="get_order_result('group_buying_evaluation')"> 评价团购 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.evaluation_source ==1}
+
+		<td align="center"><a   onclick="get_order_result('evaluation_source')"> 评价来源 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.user_nickname ==1}
+
+		<td align="center"><a   onclick="get_order_result('user_nickname')"> 用户昵称 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.is_vip ==1}
+
+		<td align="center"><a   onclick="get_order_result('is_vip')"> 是否vip </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.user_level ==1}
+
+		<td align="center"><a   onclick="get_order_result('user_level')"> 用户等级 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.reply_status ==1}
+
+		<td align="center"><a   onclick="get_order_result('reply_status')"> 回复状态 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.merchant_reply_content ==1}
+
+		<td align="center"><a   onclick="get_order_result('merchant_reply_content')"> 商户回复内容 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.merchant_reply_time ==1}
+
+		<td align="center"><a   onclick="get_order_result('merchant_reply_time')"> 商户回复时间 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.building_content ==1}
+
+		<td align="center"><a   onclick="get_order_result('building_content')"> 盖楼内容 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.is_negative ==1}
+
+		<td align="center"><a   onclick="get_order_result('is_negative')"> 是否差评 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.evaluation_type ==1}
+
+		<td align="center"><a   onclick="get_order_result('evaluation_type')"> 评价类型 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.dine_way ==1}
+
+		<td align="center"><a   onclick="get_order_result('dine_way')"> 就餐方式 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.department ==1}
+
+		<td align="center"><a   onclick="get_order_result('department')"> 归属部门 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.evaluation_level ==1}
+
+		<td align="center"><a   onclick="get_order_result('evaluation_level')"> 评价等级 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.think ==1}
+
+		<td align="center"><a   onclick="get_order_result('think')"> 思考过程 </a></td>
+		{/if}
+		
+
+		{if $pe.showFieldsArr.tenant_code ==1}
+
+		<td align="center"><a   onclick="get_order_result('tenant_code')"> 租户 </a></td>
+		{/if}
+		
+
+                            <td align="center"> 操作</td>
+                        </tr>                           
+                    </thead> 
+                    <tbody>   
+                        {foreach $pe.listData as $oneData}
+                        <tr  class="table_body">
+                           
+							
+							 {if $pe.showFieldsArr.id ==1}
+<td align="center">{$oneData.id}</td>{/if}
+
+{if $pe.showFieldsArr.evaluation_time ==1}
+<td align="center">{$oneData.evaluation_time}</td>{/if}
+
+{if $pe.showFieldsArr.evaluation_tags ==1}
+<td align="center">{$oneData.evaluation_tags}</td>{/if}
+
+{if $pe.showFieldsArr.evaluation_details ==1}
+<td align="center">{$oneData.evaluation_details}</td>{/if}
+
+{if $pe.showFieldsArr.star_rating ==1}
+<td align="center">{$oneData.star_rating}</td>{/if}
+
+{if $pe.showFieldsArr.taste_rating ==1}
+<td align="center">{$oneData.taste_rating}</td>{/if}
+
+{if $pe.showFieldsArr.environment_rating ==1}
+<td align="center">{$oneData.environment_rating}</td>{/if}
+
+{if $pe.showFieldsArr.service_rating ==1}
+<td align="center">{$oneData.service_rating}</td>{/if}
+
+{if $pe.showFieldsArr.category_rating ==1}
+<td align="center">{$oneData.category_rating}</td>{/if}
+
+{if $pe.showFieldsArr.ingredient_rating ==1}
+<td align="center">{$oneData.ingredient_rating}</td>{/if}
+
+{if $pe.showFieldsArr.cost_performance_rating ==1}
+<td align="center">{$oneData.cost_performance_rating}</td>{/if}
+
+{if $pe.showFieldsArr.view_count ==1}
+<td align="center">{$oneData.view_count}</td>{/if}
+
+{if $pe.showFieldsArr.city ==1}
+<td align="center">{$oneData.city}</td>{/if}
+
+{if $pe.showFieldsArr.store_name ==1}
+<td align="center">{$oneData.store_name}</td>{/if}
+
+{if $pe.showFieldsArr.store_meituan_id ==1}
+<td align="center">{$oneData.store_meituan_id}</td>{/if}
+
+{if $pe.showFieldsArr.authorization_number ==1}
+<td align="center">{$oneData.authorization_number}</td>{/if}
+
+{if $pe.showFieldsArr.group_buying_id ==1}
+<td align="center">{$oneData.group_buying_id}</td>{/if}
+
+{if $pe.showFieldsArr.group_buying_evaluation ==1}
+<td align="center">{$oneData.group_buying_evaluation}</td>{/if}
+
+{if $pe.showFieldsArr.evaluation_source ==1}
+<td align="center">{$oneData.evaluation_source}</td>{/if}
+
+{if $pe.showFieldsArr.user_nickname ==1}
+<td align="center">{$oneData.user_nickname}</td>{/if}
+
+{if $pe.showFieldsArr.is_vip ==1}
+<td align="center">{$oneData.is_vip}</td>{/if}
+
+{if $pe.showFieldsArr.user_level ==1}
+<td align="center">{$oneData.user_level}</td>{/if}
+
+{if $pe.showFieldsArr.reply_status ==1}
+<td align="center">{$oneData.reply_status}</td>{/if}
+
+{if $pe.showFieldsArr.merchant_reply_content ==1}
+<td align="center">{$oneData.merchant_reply_content}</td>{/if}
+
+{if $pe.showFieldsArr.merchant_reply_time ==1}
+<td align="center">{$oneData.merchant_reply_time}</td>{/if}
+
+{if $pe.showFieldsArr.building_content ==1}
+<td align="center">{$oneData.building_content}</td>{/if}
+
+{if $pe.showFieldsArr.is_negative ==1}
+<td align="center">{$oneData.is_negative}</td>{/if}
+
+{if $pe.showFieldsArr.evaluation_type ==1}
+<td align="center">{$oneData.evaluation_type}</td>{/if}
+
+{if $pe.showFieldsArr.dine_way ==1}
+<td align="center">{$oneData.dine_way}</td>{/if}
+
+{if $pe.showFieldsArr.department ==1}
+<td align="center">{$oneData.department}</td>{/if}
+
+{if $pe.showFieldsArr.evaluation_level ==1}
+<td align="center">{$oneData.evaluation_level}</td>{/if}
+
+{if $pe.showFieldsArr.think ==1}
+<td align="center">{$oneData.think}</td>{/if}
+
+{if $pe.showFieldsArr.tenant_code ==1}
+<td align="center">{$oneData.tenant_code}</td>{/if}
+
+
+                            
+							
+							
+							<td align="center">       
+						             
+                                <a href="javascript:void(0);" class="handle" onclick="edit_data( {$oneData.id},'{$pe.pageWhere}'  );">编辑</a>
+                              | <a href="javascript:void(0);" class="handle" onclick="copy_data( {$oneData.id} ,'{$pe.pageWhere}' );">复制</a>
+                              |  <a class="handle" href="__APP__/Evaluation/delete?id={$oneData.id}" onclick="return confirm(' 确认删除？');" title="点击删除">删除</a>
+						 
+                            </td>                                            
+                        </tr>
+                        {/foreach}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="pager">
+            <div class="wrapper">{$pe.page}   
+            {if $pe.showTable>0}
+            ｜<a  class="handle" href="__APP__/Download/download?tableName={$pe.selected }" title="点击下载数据">下载数据</a>
+            {/if}
+            </div>
+
+ {if $pe.showTable>1}
+ <!--
+ <div class="wrapper">
+<fieldset>
+<form method="post" action="__APP__/Evaluation/upServerModel" enctype="multipart/form-data">
+
+<b>导入Excel数据：</b><input  type="file" name="import" />
+
+<input type="submit"  value="导入" /><br>
+<font color=red>说明：有id号的数据将更新，无id号的数据将插入</font>
+</form></fieldset>
+</div>
+-->
+{/if}
+
+        </div>
+    </div>
+     <br><br><br><br><br>
+    
+        <div   id="div_show_mytools" style="display:none;background-color:#F2F6F9;filter:alpha(opacity=50,Style=0);width:400px;height:50px" >
+	   <fieldset>
+	    <form method="POST" action="__APP__/OrderDefines/add">
+			<div class="modal-header"  style="background: #eef3f8;" >
+				<a class="close" data-dismiss="modal">×</a>
+				<h4>详细</h4>
+			</div>
+			<div class="modal-body" id="indexShowDetail" style="background: #eef3f8;">
+			 
+			 </div>
+			<div class="modal-footer">
+			
+				<a class="btn btn-danger" data-dismiss="modal" onclick='hideDiv()'>关闭</a>
+			</div>
+		</form>
+		
+	  </fieldset>
+	</div>
+	
+
+{include file="../Public/setfields.html"} 
+{include file="../Public/FF.html"}
+{/block}
+
+{block PageModal}
+ 
+{/block}

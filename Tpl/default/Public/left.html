@@ -1,0 +1,440 @@
+
+     <script type="text/javascript" src="__PUBLIC__/js/jquery/1.8.2/jquery-1.8.2.min.js"></script>
+	 <script type="text/javascript"><!--
+
+var globDisplay=false; //是否显示全局二级
+
+function doSearch()
+{
+		searckKey = $("#searckKey").val();
+				  //ajax 保存 searchKey
+			$.post("__APP__/Ajax/searckKeySave", {
+				searckKey: searckKey
+			}, function(data, st){
+				console.log("searckKeySave");
+
+			}) ;
+			 console.log(searckKey);
+
+			 preTitle1=null;
+
+
+				  $(".body_left").find("div").each(function(){
+						myText = $(this).text();
+						myclass = $(this).attr('class');
+					  if( myclass!=undefined && myclass!=null  ) {
+
+							if( myclass.indexOf("menu_title1")>=0)
+							{
+								preTitle1=$(this);
+
+								  if(myText.toLowerCase().indexOf(searckKey.toLowerCase())>=0)
+								  {
+											$(this).css("display", "block");
+
+									 }
+									 else
+									 { //隐藏
+
+												 $(this).css("display", "none");
+									 }
+							}
+
+								if( myclass.indexOf("menu_title2")>=0)
+							{
+
+								  if(myText.toLowerCase().indexOf(searckKey.toLowerCase())>=0)
+								  {
+											$(this).css("display", "block");
+											preTitle1.css("display", "block");
+
+									 }
+									 else
+									 { //隐藏
+
+												 $(this).css("display", "none");
+									 }
+							}
+					  }
+				   // console.log(myText);
+
+			  });
+
+
+}
+
+golobClick = 0;
+$(function() {
+
+ $( ".menu_title2" ).css("display", "none");
+
+	 $( ".hideAll" ).click(function(){
+
+					  if(!globDisplay){
+							$( ".menu_title2" ).css("display", "block");
+							globDisplay=true;
+
+						}
+						else
+						{    $( ".menu_title2" ).css("display", "none");
+								globDisplay=false;
+
+						}
+		});
+
+
+		 $(".menu_title1").click(function(){
+		  //  $(this).nextAll().css( { "color":"red","border":"2px solid red"});
+
+			golobClick++;
+		   $(this).nextAll().each(function(){
+				   myclass = $(this).attr('class');
+				  if(myclass.indexOf("menu_title1")>=0) {
+						return false;
+				  }
+				  else
+				  {
+
+					  var display = $(this).css('display');
+
+					  if(golobClick%2==1){
+							$(this).css("display", "block");
+						}
+						else
+						{
+							 $(this).css("display", "none");
+						}
+
+
+				  }
+			  });
+
+		});
+
+		$("#searckKey").keypress(function (e) {
+			if (e.which == 13) {
+				doSearch();
+			}
+		});
+
+
+		 $("#doSearch").click(function(){
+				doSearch();
+
+
+		});
+});
+{literal}
+{/literal}
+--></script>
+
+	<div class="body_left">
+	<div  >
+
+
+	<input  name="searckKey"  type="text" class="small"   id="searckKey"  value="{$pe.tableAuth.searckKey}"/> <input type="submit" id="doSearch" class="btn btn-primary" value="搜索"/>
+</div>
+
+<div  >
+
+<a class="hideAll selected"> 【隐藏显示所有二级】</a>
+</div>
+
+	
+
+ 
+<div class="menu_title1">
+	<a class="selected"> wakanda</a>
+	</div>
+	
+	<div class="menu_title2">
+		<a href="__APP__/StoreStat/index" onclick="iframeto(this.href);return false;" > 存储统计配置表</a>
+		 </div>
+		<div class="menu_title2">
+		<a href="__APP__/StoreLog/index" onclick="iframeto(this.href);return false;" > 存储统计日志表</a>
+		 </div>
+
+	
+	 
+
+			
+	<div class="menu_title2">
+		<a href="__APP__/AdsPurchaseAlertStoreDay/index" onclick="iframeto(this.href);return false;" > 明之私采回推表(ads_purchase_alert_store_day)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/AdsPurchaseAlertStoreDayPreview/index" onclick="iframeto(this.href);return false;" > ads_purchase_alert_store_day_preview(ads_purchase_alert_store_day_preview)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/AdsPurchaseAlertStoreDayPreviewBasic/index" onclick="iframeto(this.href);return false;" > ads_purchase_alert_store_day_preview_basic(ads_purchase_alert_store_day_preview_basic)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/AdsPurchaseAlertStoreDayPreviewBasicBek/index" onclick="iframeto(this.href);return false;" > ads_purchase_alert_store_day_preview_basic_bek(ads_purchase_alert_store_day_preview_basic_bek)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/CategoryAlias/index" onclick="iframeto(this.href);return false;" > 树结构枝干(category_alias)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/CleaningSku/index" onclick="iframeto(this.href);return false;" > 商品清洗表(cleaning_sku)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/CleaningSkuNumber/index" onclick="iframeto(this.href);return false;" > cleaning_sku_number(cleaning_sku_number)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/CleaningSkuTmp/index" onclick="iframeto(this.href);return false;" > 商品清洗表(cleaning_sku_tmp)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/CleaningSkuVnumber/index" onclick="iframeto(this.href);return false;" > cleaning_sku_vnumber(cleaning_sku_vnumber)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/ContinuousValueQuery/index" onclick="iframeto(this.href);return false;" > 连续型数据查询模板(continuous_value_query)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/ContinuousValueQueryCopynumber/index" onclick="iframeto(this.href);return false;" > continuous_value_query_copynumber(continuous_value_query_copynumber)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/ContinuousValueQueryTemplate/index" onclick="iframeto(this.href);return false;" > 连续型数据查询模板(continuous_value_query_template)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/ContinuousValueQueryTemplateCopynumber/index" onclick="iframeto(this.href);return false;" > continuous_value_query_template_copynumber(continuous_value_query_template_copynumber)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/DimCommodityDfSend/index" onclick="iframeto(this.href);return false;" > dim_commodity_df_send(dim_commodity_df_send)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/DimCommodityDfSendNumber/index" onclick="iframeto(this.href);return false;" > dim_commodity_df_send_number(dim_commodity_df_send_number)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/DimCommodityDfSendBakNumber/index" onclick="iframeto(this.href);return false;" > dim_commodity_df_send_bak_number(dim_commodity_df_send_bak_number)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/DimCommodityDfSendTmp/index" onclick="iframeto(this.href);return false;" > dim_commodity_df_send_tmp(dim_commodity_df_send_tmp)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/DimCommodityListDf/index" onclick="iframeto(this.href);return false;" > 租户商品表(dim_commodity_list_df)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/DimStockCheckDf/index" onclick="iframeto(this.href);return false;" > 商品库存信息(dim_stock_check_df)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/Evaluation/index" onclick="iframeto(this.href);return false;" > 评价数据(evaluation)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/EvaluationNumber/index" onclick="iframeto(this.href);return false;" > evaluation_number(evaluation_number)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/EvaluationNcx/index" onclick="iframeto(this.href);return false;" > 评价数据(evaluation_ncx)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/FilterOption/index" onclick="iframeto(this.href);return false;" > 筛选条件表(filter_option)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/FilterOptionCopynumber/index" onclick="iframeto(this.href);return false;" > filter_option_copynumber(filter_option_copynumber)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/FilterOptionDashboard/index" onclick="iframeto(this.href);return false;" > 筛选条件表(filter_option_dashboard)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/FilterOptionDashboardCopynumber/index" onclick="iframeto(this.href);return false;" > filter_option_dashboard_copynumber(filter_option_dashboard_copynumber)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/FilterTag/index" onclick="iframeto(this.href);return false;" > 值类型查询模板(filter_tag)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/FilterTagCopynumber/index" onclick="iframeto(this.href);return false;" > filter_tag_copynumber(filter_tag_copynumber)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/Ids/index" onclick="iframeto(this.href);return false;" > ids(ids)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/IllegalProcurementConfig/index" onclick="iframeto(this.href);return false;" > 私采租户配置(illegal_procurement_config)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/IllegalProcurementConfigPreview/index" onclick="iframeto(this.href);return false;" > 私采租户配置(illegal_procurement_config_preview)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/IllegalProcurementDatabaseConfig/index" onclick="iframeto(this.href);return false;" > 商品清洗结果回推表(illegal_procurement_database_config)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/IllegalProcurementDatabaseParam/index" onclick="iframeto(this.href);return false;" > 商品清洗结果回推表(illegal_procurement_database_param)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/ImportDataTask/index" onclick="iframeto(this.href);return false;" > import_data_task(import_data_task)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/LeafAlloc/index" onclick="iframeto(this.href);return false;" > 发号器表(leaf_alloc)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/OdsCommodityDa/index" onclick="iframeto(this.href);return false;" > 商品表(ods_commodity_da)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/Rmf/index" onclick="iframeto(this.href);return false;" > 筛选条件表(rmf)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/RmfCopynumber/index" onclick="iframeto(this.href);return false;" > rmf_copynumber(rmf_copynumber)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/SexiTestSqoop/index" onclick="iframeto(this.href);return false;" > 明之私采回推表(sexi_test_sqoop)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/Sheet/index" onclick="iframeto(this.href);return false;" > sheet(sheet)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/SheetCopynumber/index" onclick="iframeto(this.href);return false;" > sheet_copynumber(sheet_copynumber)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/SkuAlias/index" onclick="iframeto(this.href);return false;" > 树形组织叶子节点(sku_alias)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/SkuCategory/index" onclick="iframeto(this.href);return false;" > sku_category(sku_category)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/SqlTemplateVnumber/index" onclick="iframeto(this.href);return false;" > sql_template_vnumber(sql_template_vnumber)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/SqoopGoodsCleaningEtlInfo/index" onclick="iframeto(this.href);return false;" > 商品清洗结果回推表(sqoop_goods_cleaning_etl_info)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/SqoopGoodsCleaningOrderInfo/index" onclick="iframeto(this.href);return false;" > 商品清洗结果回推表(sqoop_goods_cleaning_order_info)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/SqoopIllegalProcurementBasic/index" onclick="iframeto(this.href);return false;" > 私采回推表(sqoop_illegal_procurement_basic)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/SqoopIllegalProcurementMaterial/index" onclick="iframeto(this.href);return false;" > 商品清洗结果回推表(sqoop_illegal_procurement_material)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/SqoopIllegalProcurementStore/index" onclick="iframeto(this.href);return false;" > 商品清洗结果回推表(sqoop_illegal_procurement_store)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/Store/index" onclick="iframeto(this.href);return false;" > store(store)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/StoreBi/index" onclick="iframeto(this.href);return false;" > store_bi(store_bi)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/StoreTag/index" onclick="iframeto(this.href);return false;" > store_tag(store_tag)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TDownloadColumn/index" onclick="iframeto(this.href);return false;" > 下载详情(t_download_column)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TbAnalysisTask/index" onclick="iframeto(this.href);return false;" > 分析任务(tb_analysis_task)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TbCiBlackcommodity/index" onclick="iframeto(this.href);return false;" > 不参加巡检的配置表(tb_ci_blackcommodity)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TbCiManagerpushConf/index" onclick="iframeto(this.href);return false;" > 店长推送配置表(tb_ci_managerpush_conf)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TbCiRulelog/index" onclick="iframeto(this.href);return false;" > 日志规则表(tb_ci_rulelog)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TbCiUnsalablerule/index" onclick="iframeto(this.href);return false;" > 滞销规则表(tb_ci_unsalablerule)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TbCommodityInspection/index" onclick="iframeto(this.href);return false;" > 商品库存信息(tb_commodity_inspection)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TbDataassetsIndexinfo/index" onclick="iframeto(this.href);return false;" > 数据资产指标说明(tb_dataassets_indexinfo)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TbDataassetsInfo/index" onclick="iframeto(this.href);return false;" > 租户资产表信息统计(tb_dataassets_info)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TbDataassetsRemaindownload/index" onclick="iframeto(this.href);return false;" > 下载剩余表(tb_dataassets_remaindownload)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TbDataassetsStatistics/index" onclick="iframeto(this.href);return false;" > 统计信息(tb_dataassets_statistics)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TbDataassetsStatisticsExtend/index" onclick="iframeto(this.href);return false;" > 统计信息扩展表(tb_dataassets_statistics_extend)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TbDataassetsTimerange/index" onclick="iframeto(this.href);return false;" > 记录租户开始结束时间(tb_dataassets_timerange)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TbStandardgoods/index" onclick="iframeto(this.href);return false;" > 目标商品(tb_standardgoods)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TenantCode/index" onclick="iframeto(this.href);return false;" > tenant_code(tenant_code)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TenantTask/index" onclick="iframeto(this.href);return false;" > tenant_task(tenant_task)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TenantTaskCopynumber/index" onclick="iframeto(this.href);return false;" > tenant_task_copynumber(tenant_task_copynumber)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/Testnumber/index" onclick="iframeto(this.href);return false;" > testnumber(testnumber)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TmpCleaningSku/index" onclick="iframeto(this.href);return false;" > 商品清洗表(tmp_cleaning_sku)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TmpCommodityNew/index" onclick="iframeto(this.href);return false;" > tmp_commodity_new(tmp_commodity_new)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TreeBranch/index" onclick="iframeto(this.href);return false;" > 树结构枝干(tree_branch)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TreeBranchCopynumber/index" onclick="iframeto(this.href);return false;" > tree_branch_copynumber(tree_branch_copynumber)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TreeBranchToLeaf/index" onclick="iframeto(this.href);return false;" > tree_branch_to_leaf(tree_branch_to_leaf)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TreeBranchToLeafNumber/index" onclick="iframeto(this.href);return false;" > tree_branch_to_leaf_number(tree_branch_to_leaf_number)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TreeBranchToLeafCopynumber/index" onclick="iframeto(this.href);return false;" > tree_branch_to_leaf_copynumber(tree_branch_to_leaf_copynumber)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TreeLeaf/index" onclick="iframeto(this.href);return false;" > 树形组织叶子节点(tree_leaf)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TreeLeafCopynumber/index" onclick="iframeto(this.href);return false;" > tree_leaf_copynumber(tree_leaf_copynumber)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TreeTag/index" onclick="iframeto(this.href);return false;" > 树结构标签(tree_tag)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TreeTagCopynumber/index" onclick="iframeto(this.href);return false;" > tree_tag_copynumber(tree_tag_copynumber)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TreeTagQuery/index" onclick="iframeto(this.href);return false;" > 树结构标签(tree_tag_query)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/TreeTagQueryCopynumber/index" onclick="iframeto(this.href);return false;" > tree_tag_query_copynumber(tree_tag_query_copynumber)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/UserLog/index" onclick="iframeto(this.href);return false;" > 树结构标签(user_log)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/UserLogCopynumber/index" onclick="iframeto(this.href);return false;" > user_log_copynumber(user_log_copynumber)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/ValueTupleQueryTemplate/index" onclick="iframeto(this.href);return false;" > 值类型查询模板(value_tuple_query_template)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/ValueTupleQueryTemplateCopynumber/index" onclick="iframeto(this.href);return false;" > value_tuple_query_template_copynumber(value_tuple_query_template_copynumber)</a>
+		 </div>
+			<div class="menu_title2">
+		<a href="__APP__/WxStoreAppConfig/index" onclick="iframeto(this.href);return false;" > wx_store_app_config(wx_store_app_config)</a>
+		 </div>
+
+
+
+
+
+			
+			
+<div class="menu_title1">
+			<a class="selected">反映问题</a>
+		</div>
+<div class="menu_title2">
+
+有问题请找 zengwenjie@jd.com
+</div>
+
+	</div>

@@ -1,0 +1,200 @@
+{extends file="../Public/header.html"}     
+{block PageCss}
+<style type="text/css">
+    .hide{
+        display:none;
+    }   
+</style>
+{/block}
+{block PageJavaScript}
+    {literal}
+    <!--GRS 2013-5-10-->
+    <script type="text/javascript" src="__PUBLIC__/js/jquery/1.8.2/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/libs/jquery.qtip-1.0.0-rc3.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/libs/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/bootstrap/bootstrap-modal.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/bootstrap/bootstrap-transition.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/main.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/setfields.js"></script>
+    <script type="text/javascript">
+        var current_system = "all";
+        $(function(){
+           
+            $('.tbl1 a[title]').qtip({
+                style: {
+                    width: {
+                        max: 700,
+                        min: 200
+                    },
+                    name: 'blue',
+                    tip: true
+                },
+                content: {
+                    text: false
+                },
+                position: {
+                    corner: {
+                        tooltip: 'topLeft',
+                        target: 'bottomLeft'
+                    },
+                    adjust: {
+                        resize: true,
+                        scroll: true
+                    }
+                },
+            });
+            
+            var t = '';
+            $("#search").keyup(function(){
+                clearTimeout(t);  
+                t = setTimeout(search,500);
+            });
+
+            function search(){ //搜索
+            
+                var content = $.trim($("#search").val());//输入框值去空格，并变小写
+                if(content.length > 0){     
+                    var result = $(".tbl1 tbody tr").filter(":contains("+content+")");//选出含有搜索内容的
+                    if(current_system == 'all'){
+                        result.show();
+                    }
+                    else{
+                        result.each(function(i){
+                            if($(this).find("td:eq(2)").text() == current_system){
+                                $(this).show();
+                            }else{
+                                $(this).hide(); 
+                            }   
+                        });
+                    }                   
+                    $(".tbl1 tbody tr").filter(":not(:contains("+content+"))").hide();//选出含有搜索内容的
+                }
+                else{ 
+                    if(current_system == 'all'){
+                        $(".tbl1 tbody tr").show();
+                    }
+                    else{
+                        $(".tbl1 tbody tr").each(function(i){
+                            if($(this).find("td:eq(2)").text() == current_system){
+                                $(this).show();
+                            }else{
+                                $(this).hide();
+                            }
+                        });
+                    }
+                }
+            }//search
+        })
+      
+              
+        
+        $(function(){
+            $(".tbl1 tbody tr").mouseover(function(){
+                if (!$(this).hasClass("header")) {
+                    $(this).addClass("over");
+                }
+            }).mouseout(function(){
+                $(this).removeClass("over");
+            })
+        })
+        
+        //显示所有项
+        function get_all_requirements(){
+            $(".menu_title2 a").removeClass("selected");
+            $(".menu_title2 a:first").addClass("selected");
+            current_system = 'all';
+            $('.tbl1 tbody tr').show();
+        }
+        
+        //按系统筛选
+        function get_requirements_by_system(system_name){
+            $(".menu_title2 a").removeClass("selected");
+            $(".menu_title2 :contains("+system_name+")").addClass("selected");
+            current_system = system_name;
+            $('.tbl1 tbody tr').each(function(i){//搜寻表格里的每一个区间
+                if($(this).find("td:eq(2)").text() == system_name){
+                    $(this).show();
+                }else{
+                    $(this).hide(); 
+                }   
+            });
+        }
+        
+          
+        //添加系统需求弹窗
+        function add_system(params){
+            var iWidth = 655;  //弹出窗口的宽度;
+            var iHeight = 500; //弹出窗口的高度;
+            var iTop = (window.screen.availHeight-30-iHeight)/2;       //获得窗口的垂直位置;
+            var iLeft = (window.screen.availWidth-10-iWidth)/2;           //获得窗口的水平位置;
+            window.open ('__APP__/System/add?params='+params,'newwindow','height='+iHeight+',width='+iWidth+',top='+iTop+',left='+iLeft+',toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');
+            
+		}     
+        
+        //添加需求弹窗
+        function add_requirement(params){
+            var iWidth = 655;  //弹出窗口的宽度;
+            var iHeight = 500; //弹出窗口的高度;
+            var iTop = (window.screen.availHeight-30-iHeight)/2;       //获得窗口的垂直位置;
+            var iLeft = (window.screen.availWidth-10-iWidth)/2;           //获得窗口的水平位置;
+            window.open ('__APP__/Requirement/add?params='+params,'newwindow','height='+iHeight+',width='+iWidth+',top='+iTop+',left='+iLeft+',toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');
+         
+		}
+        //编辑需求弹窗
+        function edit_requirement(params){
+            var iWidth = 655;  //弹出窗口的宽度;
+            var iHeight = 500; //弹出窗口的高度;
+            var iTop = (window.screen.availHeight-30-iHeight)/2;       //获得窗口的垂直位置;
+            var iLeft = (window.screen.availWidth-10-iWidth)/2;           //获得窗口的水平位置;
+            window.open ('__APP__/Requirement/edit?params='+params,'newwindow','height='+iHeight+',width='+iWidth+',top='+iTop+',left='+iLeft+',toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');
+        
+	    }
+    </script>
+    {/literal}
+{/block}
+{block PageHeader}
+    <title>欢迎登录</title>
+{/block}
+{block PageBody}
+    <div id="top_nav2">
+        <div class="left">{$pe.nav}</div>
+        <form method="GET" action="__APP__/Index/search">
+            <span style="float:right;width:279px;">
+                <div class="search2">
+                    <div class="input-prepend">
+                        <span class="add-on"><i class="icon-search"></i></span>
+                        <input class="span2" id="search" type="text" style="margin:0;">
+                    </div>
+                </div>
+            </span>
+        </form>
+    </div>
+    <div class="body_container">
+      
+          {include file="../Public/left.html"}  
+
+        <div class="body_middle">
+            <div class="body_nav">
+                <div class="left">
+                    欢迎进入 {$pe.title}
+                </div>    
+				
+ 
+	 
+            </div>
+            <div id="msg_container"></div>
+            <div class="clr">
+               <center> 
+            </center>
+            </div>
+        </div>
+        <div class="pager">
+            <div class="wrapper">{$pe.page}</div>
+        </div>
+    </div>
+{include file="../Public/setfields.html"}
+{/block}
+
+{block PageModal}
+ 
+{/block}

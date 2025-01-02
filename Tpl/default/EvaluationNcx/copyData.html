@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>复制数据</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/layout.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/default.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.css"/>
+     <script type="text/javascript" src="__PUBLIC__/js/jquery/1.8.2/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/libs/jquery.qtip-1.0.0-rc3.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/libs/jquery.validate.min.js"></script> 
+        <script type="text/javascript">
+jQuery.noConflict();
+</script>
+<link rel="stylesheet" href="__PUBLIC__/css/themes/base/jquery-ui.css" type="text/css" media="all" />   
+<script src="__PUBLIC__/js/jquery/1.4.2/jquery-1.4.2.min.js" type="text/javascript"></script>   
+<script src="__PUBLIC__/js/libs/jquery-ui.min.1.8.10.js" type="text/javascript"></script>  
+
+    <style>
+   	.modal_container{
+   		margin-top:40px;
+		padding:0;
+   	}
+	.mainForm{
+		margin:10px;
+	}
+	.field-group{
+		vertical-align:middle;
+	}
+	.field-group  label{
+		margin:0 18px 0 0;
+	}
+	input[type="radio"]{
+		margin:0;
+	}
+	</style>
+    <script type="text/javascript"><!--
+       function startSelect(objIdStr,objValue)
+    {
+
+		      $.post("__APP__/Ajax/getSelect", {
+                    objId: objIdStr,
+                    myselectId:objValue
+                }, function(data, st){
+                  //  var dataObj = eval("(" + data + ")");
+                    //console.log(dataObj);
+                     $( data).appendTo("#"+objIdStr); 
+                }) 
+    } 
+    
+        
+    function checkEmpty(obj ,objTitle)
+    {
+   		 objValue = obj.val();
+    	if(objValue==null||objValue=="") 
+    	{
+    		alert(objTitle+"不能为空!");
+    		obj.focus();
+    		return true;
+    	}
+    	return false;
+    }
+    
+    
+	$(function() {
+			
+		 $( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+		 
+		 		 $("#add_form").submit(function(e){
+ 
+  			 if(checkEmpty($("#editData_store_name") ,"评价门店")) return false;
+if(checkEmpty($("#editData_user_nickname") ,"用户昵称")) return false;
+
+  				
+  				return true;
+			});
+	});
+{literal}
+{/literal}
+    --></script>
+</head>
+<body>
+    <div class="modal_container" style="">
+        <form class="mainForm" action="?act=edit" method="post" id="add_form">
+            <fieldset>
+                <legend style="color:#555;">复制数据</legend>
+              
+             
+
+				
+<input type=hidden name="editData_id" value="{$pe.editData.id}" >
+<div class="field-group">
+<label class="required title" for="editData_evaluation_time" style="margin-right:19px;"><font color=red>*</font>评价时间:</label>
+<input name="editData_evaluation_time" type="text" class="medium-140" id="editData_evaluation_time" value="{$pe.editData.evaluation_time}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_evaluation_tags" style="margin-right:19px;"><font color=red>*</font>评价标签:</label>
+<input name="editData_evaluation_tags" type="text" class="medium-140" id="editData_evaluation_tags" value="{$pe.editData.evaluation_tags}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_evaluation_details" style="margin-right:19px;"><font color=red>*</font>评价详情:</label>
+<input name="editData_evaluation_details" type="text" class="medium-140" id="editData_evaluation_details" value="{$pe.editData.evaluation_details}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_star_rating" style="margin-right:19px;"><font color=red>*</font>星级分:</label>
+<input name="editData_star_rating" type="text" class="medium-140" id="editData_star_rating" value="{$pe.editData.star_rating}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_taste_rating" style="margin-right:19px;"><font color=red>*</font>口味分:</label>
+<input name="editData_taste_rating" type="text" class="medium-140" id="editData_taste_rating" value="{$pe.editData.taste_rating}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_environment_rating" style="margin-right:19px;"><font color=red>*</font>环境分:</label>
+<input name="editData_environment_rating" type="text" class="medium-140" id="editData_environment_rating" value="{$pe.editData.environment_rating}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_service_rating" style="margin-right:19px;"><font color=red>*</font>服务分:</label>
+<input name="editData_service_rating" type="text" class="medium-140" id="editData_service_rating" value="{$pe.editData.service_rating}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_category_rating" style="margin-right:19px;"><font color=red>*</font>品类分:</label>
+<input name="editData_category_rating" type="text" class="medium-140" id="editData_category_rating" value="{$pe.editData.category_rating}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_ingredient_rating" style="margin-right:19px;"><font color=red>*</font>食材分:</label>
+<input name="editData_ingredient_rating" type="text" class="medium-140" id="editData_ingredient_rating" value="{$pe.editData.ingredient_rating}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_cost_performance_rating" style="margin-right:19px;"><font color=red>*</font>性价比分:</label>
+<input name="editData_cost_performance_rating" type="text" class="medium-140" id="editData_cost_performance_rating" value="{$pe.editData.cost_performance_rating}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_view_count" style="margin-right:19px;"><font color=red>*</font>浏览人数:</label>
+<input name="editData_view_count" type="text" class="medium-140" id="editData_view_count" value="{$pe.editData.view_count}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_city" style="margin-right:19px;"><font color=red>*</font>城市:</label>
+<input name="editData_city" type="text" class="medium-140" id="editData_city" value="{$pe.editData.city}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_store_name" style="margin-right:19px;"><font color=red>*</font>评价门店:</label>
+<input name="editData_store_name" type="text" class="medium-140" id="editData_store_name" value="{$pe.editData.store_name}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_store_meituan_id" style="margin-right:19px;"><font color=red>*</font>门店美团id:</label>
+<input name="editData_store_meituan_id" type="text" class="medium-140" id="editData_store_meituan_id" value="{$pe.editData.store_meituan_id}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_authorization_number" style="margin-right:19px;"><font color=red>*</font>授权号:</label>
+<input name="editData_authorization_number" type="text" class="medium-140" id="editData_authorization_number" value="{$pe.editData.authorization_number}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_group_buying_id" style="margin-right:19px;"><font color=red>*</font>团购id:</label>
+<input name="editData_group_buying_id" type="text" class="medium-140" id="editData_group_buying_id" value="{$pe.editData.group_buying_id}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_group_buying_evaluation" style="margin-right:19px;"><font color=red>*</font>评价团购:</label>
+<input name="editData_group_buying_evaluation" type="text" class="medium-140" id="editData_group_buying_evaluation" value="{$pe.editData.group_buying_evaluation}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_evaluation_source" style="margin-right:19px;"><font color=red>*</font>评价来源:</label>
+<input name="editData_evaluation_source" type="text" class="medium-140" id="editData_evaluation_source" value="{$pe.editData.evaluation_source}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_user_nickname" style="margin-right:19px;"><font color=red>*</font>用户昵称:</label>
+<input name="editData_user_nickname" type="text" class="medium-140" id="editData_user_nickname" value="{$pe.editData.user_nickname}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_is_vip" style="margin-right:19px;"><font color=red>*</font>是否vip:</label>
+<input name="editData_is_vip" type="text" class="medium-140" id="editData_is_vip" value="{$pe.editData.is_vip}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_user_level" style="margin-right:19px;"><font color=red>*</font>用户等级:</label>
+<input name="editData_user_level" type="text" class="medium-140" id="editData_user_level" value="{$pe.editData.user_level}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_reply_status" style="margin-right:19px;"><font color=red>*</font>回复状态:</label>
+<input name="editData_reply_status" type="text" class="medium-140" id="editData_reply_status" value="{$pe.editData.reply_status}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_merchant_reply_content" style="margin-right:19px;"><font color=red>*</font>商户回复内容:</label>
+<input name="editData_merchant_reply_content" type="text" class="medium-140" id="editData_merchant_reply_content" value="{$pe.editData.merchant_reply_content}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_merchant_reply_time" style="margin-right:19px;"><font color=red>*</font>商户回复时间:</label>
+<input name="editData_merchant_reply_time" type="text" class="medium-140" id="editData_merchant_reply_time" value="{$pe.editData.merchant_reply_time}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_building_content" style="margin-right:19px;"><font color=red>*</font>盖楼内容:</label>
+<input name="editData_building_content" type="text" class="medium-140" id="editData_building_content" value="{$pe.editData.building_content}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_is_negative" style="margin-right:19px;"><font color=red>*</font>是否差评:</label>
+<input name="editData_is_negative" type="text" class="medium-140" id="editData_is_negative" value="{$pe.editData.is_negative}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_evaluation_type" style="margin-right:19px;"><font color=red>*</font>评价类型:</label>
+<input name="editData_evaluation_type" type="text" class="medium-140" id="editData_evaluation_type" value="{$pe.editData.evaluation_type}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_dine_way" style="margin-right:19px;"><font color=red>*</font>就餐方式:</label>
+<input name="editData_dine_way" type="text" class="medium-140" id="editData_dine_way" value="{$pe.editData.dine_way}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_department" style="margin-right:19px;"><font color=red>*</font>归属部门:</label>
+<input name="editData_department" type="text" class="medium-140" id="editData_department" value="{$pe.editData.department}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_evaluation_level" style="margin-right:19px;"><font color=red>*</font>评价等级:</label>
+<input name="editData_evaluation_level" type="text" class="medium-140" id="editData_evaluation_level" value="{$pe.editData.evaluation_level}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_think" style="margin-right:19px;"><font color=red>*</font>思考过程:</label>
+<input name="editData_think" type="text" class="medium-140" id="editData_think" value="{$pe.editData.think}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_negative_category" style="margin-right:19px;"><font color=red>*</font>差评分类:</label>
+<input name="editData_negative_category" type="text" class="medium-140" id="editData_negative_category" value="{$pe.editData.negative_category}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_negative_severity" style="margin-right:19px;"><font color=red>*</font>差评程度:</label>
+<input name="editData_negative_severity" type="text" class="medium-140" id="editData_negative_severity" value="{$pe.editData.negative_severity}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_negative_content" style="margin-right:19px;"><font color=red>*</font>关键差评段落:</label>
+<input name="editData_negative_content" type="text" class="medium-140" id="editData_negative_content" value="{$pe.editData.negative_content}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_positive_category" style="margin-right:19px;"><font color=red>*</font>好评分类:</label>
+<input name="editData_positive_category" type="text" class="medium-140" id="editData_positive_category" value="{$pe.editData.positive_category}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_positive_content" style="margin-right:19px;"><font color=red>*</font>关键好评段落:</label>
+<input name="editData_positive_content" type="text" class="medium-140" id="editData_positive_content" value="{$pe.editData.positive_content}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_mentioned_dishes" style="margin-right:19px;"><font color=red>*</font>提到的菜品:</label>
+<input name="editData_mentioned_dishes" type="text" class="medium-140" id="editData_mentioned_dishes" value="{$pe.editData.mentioned_dishes}"/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="editData_mentioned_dishes_content" style="margin-right:19px;"><font color=red>*</font>提到的菜品的关键段落:</label>
+<input name="editData_mentioned_dishes_content" type="text" class="medium-140" id="editData_mentioned_dishes_content" value="{$pe.editData.mentioned_dishes_content}"/> 
+ </div> 
+
+
+
+                <div style="float:left;width:600px;">
+                    <div style="text-align:center;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" id="add" class="btn btn-primary" value="提交"/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-danger" onclick="javascript:window.close()">取消</a>
+                    </div>
+                </div>
+           </fieldset>
+        </form>
+   </div>
+</body>
+</html>

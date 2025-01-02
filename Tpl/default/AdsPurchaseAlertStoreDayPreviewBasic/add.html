@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>新增数据</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/layout.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/default.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.css"/>
+     <script type="text/javascript" src="__PUBLIC__/js/jquery/1.8.2/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/libs/jquery.qtip-1.0.0-rc3.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/libs/jquery.validate.min.js"></script> 
+        <script type="text/javascript">
+jQuery.noConflict();
+</script>
+<link rel="stylesheet" href="__PUBLIC__/css/themes/base/jquery-ui.css" type="text/css" media="all" />   
+<script src="__PUBLIC__/js/jquery/1.4.2/jquery-1.4.2.min.js" type="text/javascript"></script>   
+<script src="__PUBLIC__/js/libs/jquery-ui.min.1.8.10.js" type="text/javascript"></script>  
+
+    <style>
+   	.modal_container{
+   		margin-top:40px;
+		padding:0;
+   	}
+	.mainForm{
+		margin:10px;
+	}
+	.field-group{
+		vertical-align:middle;
+	}
+	.field-group  label{
+		margin:0 18px 0 0;
+	}
+	input[type="radio"]{
+		margin:0;
+	}
+	</style>
+    <script type="text/javascript"><!--
+       function startSelect(objIdStr,objValue)
+    {
+
+		      $.post("__APP__/Ajax/getSelect", {
+                    objId: objIdStr,
+                    myselectId:objValue
+                }, function(data, st){
+                  //  var dataObj = eval("(" + data + ")");
+                    //console.log(dataObj);
+                     $( data).appendTo("#"+objIdStr); 
+                }) 
+    } 
+    
+        
+    function checkEmpty(obj ,objTitle)
+    {
+   		 objValue = obj.val();
+    	if(objValue==null||objValue=="") 
+    	{
+    		alert(objTitle+"不能为空!");
+    		obj.focus();
+    		return true;
+    	}
+    	return false;
+    }
+    
+	$(function() {
+	
+	
+		
+		 $( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+		 
+		 		 
+		 $("#add_form").submit(function(e){
+ 
+  			 if(checkEmpty($("#addData_warehouse_name") ,"仓库")) return false;
+if(checkEmpty($("#addData_store_name") ,"门店名称")) return false;
+
+  				
+  				return true;
+			});
+	});
+{literal}
+{/literal}
+    --></script>
+</head>
+<body>
+    <div class="modal_container" style="">
+        <form class="mainForm" action="?act=add" method="post" id="add_form">
+            <fieldset>
+                <legend style="color:#555;">新增数据</legend>
+              
+     
+
+				
+<div class="field-group">
+<label class="required title" for="addData_tenant_code" style="margin-right:19px;"><font color=red>*</font>租户code:</label>
+<input name="addData_tenant_code" type="text" class="medium-140" id="addData_tenant_code" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_task_id" style="margin-right:19px;"><font color=red>*</font>task_id:</label>
+<input name="addData_task_id" type="text" class="medium-140" id="addData_task_id" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_period" style="margin-right:19px;"><font color=red>*</font>快照周期:</label>
+<input name="addData_period" type="text" class="medium-140" id="addData_period" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_materia" style="margin-right:19px;"><font color=red>*</font>原材料:</label>
+<input name="addData_materia" type="text" class="medium-140" id="addData_materia" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_tenant_type" style="margin-right:19px;"><font color=red>*</font>类型:</label>
+<input name="addData_tenant_type" type="text" class="medium-140" id="addData_tenant_type" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_warehouse_name" style="margin-right:19px;"><font color=red>*</font>仓库:</label>
+<input name="addData_warehouse_name" type="text" class="medium-140" id="addData_warehouse_name" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_sub_company" style="margin-right:19px;"><font color=red>*</font>分公司:</label>
+<input name="addData_sub_company" type="text" class="medium-140" id="addData_sub_company" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_agent" style="margin-right:19px;"><font color=red>*</font>代理:</label>
+<input name="addData_agent" type="text" class="medium-140" id="addData_agent" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_store_id" style="margin-right:19px;"><font color=red>*</font>门店mzid:</label>
+<input name="addData_store_id" type="text" class="medium-140" id="addData_store_id" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_store_name" style="margin-right:19px;"><font color=red>*</font>门店名称:</label>
+<input name="addData_store_name" type="text" class="medium-140" id="addData_store_name" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_ydb_id" style="margin-right:19px;"><font color=red>*</font>鱼店宝授权码:</label>
+<input name="addData_ydb_id" type="text" class="medium-140" id="addData_ydb_id" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_province" style="margin-right:19px;"><font color=red>*</font>省份:</label>
+<input name="addData_province" type="text" class="medium-140" id="addData_province" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_city" style="margin-right:19px;"><font color=red>*</font>城市:</label>
+<input name="addData_city" type="text" class="medium-140" id="addData_city" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_county" style="margin-right:19px;"><font color=red>*</font>区域:</label>
+<input name="addData_county" type="text" class="medium-140" id="addData_county" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_yl" style="margin-right:19px;"><font color=red>*</font>理论用量:</label>
+<input name="addData_yl" type="text" class="medium-140" id="addData_yl" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_jh_cnt" style="margin-right:19px;"><font color=red>*</font>实际用量:</label>
+<input name="addData_jh_cnt" type="text" class="medium-140" id="addData_jh_cnt" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_is_alert" style="margin-right:19px;"><font color=red>*</font>是否报警:</label>
+<input name="addData_is_alert" type="text" class="medium-140" id="addData_is_alert" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_alert_reason" style="margin-right:19px;"><font color=red>*</font>报警原因:</label>
+<input name="addData_alert_reason" type="text" class="medium-140" id="addData_alert_reason" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_dt" style="margin-right:19px;"><font color=red>*</font>时间:</label>
+<input name="addData_dt" type="text" class="medium-140" id="addData_dt" value=""/> 
+ </div> 
+
+
+
+                <div style="float:left;width:600px;">
+                    <div style="text-align:center;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" id="add" class="btn btn-primary" value="提交"/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-danger" onclick="javascript:window.close()">取消</a>
+                    </div>
+                </div>
+           </fieldset>
+        </form>
+   </div>
+</body>
+</html>

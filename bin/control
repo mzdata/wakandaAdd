@@ -1,0 +1,38 @@
+#!/bin/bash
+set -x
+chown -R nginx:nginx  /export/servers/nginx/html/
+
+ipcs | grep apache | awk '{print $2}' > sem.txt
+for i in `cat sem.txt`; do { ipcrm -s $i; }; done;
+start() {
+	 /usr/local/apache/bin/apachectl restart
+     
+}
+stop() {
+       ps axu|grep httpd|xargs kill -9
+       return 0
+}
+checkhealth() {
+        return 0
+}
+help() {
+        echo "${0} <start|stop|restart|status>"
+        exit 1
+}
+case "${1}" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status|health|checkhealth)
+        checkhealth
+        ;;
+    restart)
+        stop && start
+        ;;
+    *)
+        help
+        ;;
+esac

@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>新增数据</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/layout.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/default.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.css"/>
+     <script type="text/javascript" src="__PUBLIC__/js/jquery/1.8.2/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/libs/jquery.qtip-1.0.0-rc3.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/libs/jquery.validate.min.js"></script> 
+        <script type="text/javascript">
+jQuery.noConflict();
+</script>
+<link rel="stylesheet" href="__PUBLIC__/css/themes/base/jquery-ui.css" type="text/css" media="all" />   
+<script src="__PUBLIC__/js/jquery/1.4.2/jquery-1.4.2.min.js" type="text/javascript"></script>   
+<script src="__PUBLIC__/js/libs/jquery-ui.min.1.8.10.js" type="text/javascript"></script>  
+
+    <style>
+   	.modal_container{
+   		margin-top:40px;
+		padding:0;
+   	}
+	.mainForm{
+		margin:10px;
+	}
+	.field-group{
+		vertical-align:middle;
+	}
+	.field-group  label{
+		margin:0 18px 0 0;
+	}
+	input[type="radio"]{
+		margin:0;
+	}
+	</style>
+    <script type="text/javascript"><!--
+       function startSelect(objIdStr,objValue)
+    {
+
+		      $.post("__APP__/Ajax/getSelect", {
+                    objId: objIdStr,
+                    myselectId:objValue
+                }, function(data, st){
+                  //  var dataObj = eval("(" + data + ")");
+                    //console.log(dataObj);
+                     $( data).appendTo("#"+objIdStr); 
+                }) 
+    } 
+    
+        
+    function checkEmpty(obj ,objTitle)
+    {
+   		 objValue = obj.val();
+    	if(objValue==null||objValue=="") 
+    	{
+    		alert(objTitle+"不能为空!");
+    		obj.focus();
+    		return true;
+    	}
+    	return false;
+    }
+    
+	$(function() {
+	
+	
+		
+		 $( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+		 
+		 		 
+		 $("#add_form").submit(function(e){
+ 
+  			 if(checkEmpty($("#addData_store_name") ,"store_name")) return false;
+if(checkEmpty($("#addData_alias_store_names") ,"alias_store_names")) return false;
+
+  				
+  				return true;
+			});
+	});
+{literal}
+{/literal}
+    --></script>
+</head>
+<body>
+    <div class="modal_container" style="">
+        <form class="mainForm" action="?act=add" method="post" id="add_form">
+            <fieldset>
+                <legend style="color:#555;">新增数据</legend>
+              
+     
+
+				
+<div class="field-group">
+<label class="required title" for="addData_tenant_code" style="margin-right:19px;"><font color=red>*</font>tenant_code:</label>
+<input name="addData_tenant_code" type="text" class="medium-140" id="addData_tenant_code" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_store_id" style="margin-right:19px;"><font color=red>*</font>store_id:</label>
+<input name="addData_store_id" type="text" class="medium-140" id="addData_store_id" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_provider" style="margin-right:19px;"><font color=red>*</font>provider:</label>
+<input name="addData_provider" type="text" class="medium-140" id="addData_provider" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_store_code" style="margin-right:19px;"><font color=red>*</font>store_code:</label>
+<input name="addData_store_code" type="text" class="medium-140" id="addData_store_code" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_store_name" style="margin-right:19px;"><font color=red>*</font>store_name:</label>
+<input name="addData_store_name" type="text" class="medium-140" id="addData_store_name" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_alias_store_names" style="margin-right:19px;"><font color=red>*</font>alias_store_names:</label>
+<input name="addData_alias_store_names" type="text" class="medium-140" id="addData_alias_store_names" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_province" style="margin-right:19px;"><font color=red>*</font>province:</label>
+<input name="addData_province" type="text" class="medium-140" id="addData_province" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_city" style="margin-right:19px;"><font color=red>*</font>city:</label>
+<input name="addData_city" type="text" class="medium-140" id="addData_city" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_country" style="margin-right:19px;"><font color=red>*</font>country:</label>
+<input name="addData_country" type="text" class="medium-140" id="addData_country" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_address" style="margin-right:19px;"><font color=red>*</font>address:</label>
+<input name="addData_address" type="text" class="medium-140" id="addData_address" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_phone" style="margin-right:19px;"><font color=red>*</font>phone:</label>
+<input name="addData_phone" type="text" class="medium-140" id="addData_phone" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_longitude" style="margin-right:19px;"><font color=red>*</font>longitude:</label>
+<input name="addData_longitude" type="text" class="medium-140" id="addData_longitude" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_latitude" style="margin-right:19px;"><font color=red>*</font>latitude:</label>
+<input name="addData_latitude" type="text" class="medium-140" id="addData_latitude" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_square" style="margin-right:19px;"><font color=red>*</font>square:</label>
+<input name="addData_square" type="text" class="medium-140" id="addData_square" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_rent" style="margin-right:19px;"><font color=red>*</font>rent:</label>
+<input name="addData_rent" type="text" class="medium-140" id="addData_rent" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_employees" style="margin-right:19px;"><font color=red>*</font>employees:</label>
+<input name="addData_employees" type="text" class="medium-140" id="addData_employees" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_onboard_date" style="margin-right:19px;"><font color=red>*</font>onboard_date:</label>
+<input name="addData_onboard_date" type="text" class="medium-140" id="addData_onboard_date" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_shutdown_date" style="margin-right:19px;"><font color=red>*</font>shutdown_date:</label>
+<input name="addData_shutdown_date" type="text" class="medium-140" id="addData_shutdown_date" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_store_type" style="margin-right:19px;"><font color=red>*</font>store_type:</label>
+<input name="addData_store_type" type="text" class="medium-140" id="addData_store_type" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_status" style="margin-right:19px;"><font color=red>*</font>status:</label>
+<input name="addData_status" type="text" class="medium-140" id="addData_status" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_dt" style="margin-right:19px;"><font color=red>*</font>dt:</label>
+<input name="addData_dt" type="text" class="medium-140" id="addData_dt" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_deleted" style="margin-right:19px;"><font color=red>*</font>deleted:</label>
+<input name="addData_deleted" type="text" class="medium-140" id="addData_deleted" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_update_time" style="margin-right:19px;"><font color=red>*</font>update_time:</label>
+<input name="addData_update_time" type="text" class="medium-140" id="addData_update_time" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_update_time_business" style="margin-right:19px;"><font color=red>*</font>update_time_business:</label>
+<input name="addData_update_time_business" type="text" class="medium-140" id="addData_update_time_business" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_business_district" style="margin-right:19px;"><font color=red>*</font>business_district:</label>
+<input name="addData_business_district" type="text" class="medium-140" id="addData_business_district" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_table_count" style="margin-right:19px;"><font color=red>*</font>table_count:</label>
+<input name="addData_table_count" type="text" class="medium-140" id="addData_table_count" value=""/> 
+ </div> 
+<div class="field-group">
+<label class="required title" for="addData_available" style="margin-right:19px;"><font color=red>*</font>available:</label>
+<input name="addData_available" type="text" class="medium-140" id="addData_available" value=""/> 
+ </div> 
+
+
+
+                <div style="float:left;width:600px;">
+                    <div style="text-align:center;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" id="add" class="btn btn-primary" value="提交"/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-danger" onclick="javascript:window.close()">取消</a>
+                    </div>
+                </div>
+           </fieldset>
+        </form>
+   </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/layout.css"/>
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/default.css"/>
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.css"/>
+		{block PageCss}
+		{/block}
+        {block PageJavaScript}
+        {/block}
+		{block PageHeader}
+        {/block}
+    </head>
+    <body>
+    	<div id="adm_header">
+			<div class="left">
+				<div style="margin-top:7px;font-size:30px;color:#7e9070">{$pe.title}</div>
+			</div>
+			<div style="float:left;"><h6 style="margin-top:16px;">&nbsp;(版本：{$pe.version})</h6></div>
+			<div class="right">
+				<div class="top_account">{$pe.mail}</div>
+				<div class="top_link">
+					<a style="background-color:#EC7000;color:#fff;-moz-border-radius:3px;-webkit-border-radius:3px;" onclick="return confirm('确定要退出吗？')" href="__APP__/Authorization/logout" class="link2">退出</a>
+				</div>
+			</div>
+		</div>
+		{block PageBody}
+            body is here
+		{/block}
+		{block PageModal}
+		{/block}
+	</body>
+</html>
+        {block Template}
+        {/block}
