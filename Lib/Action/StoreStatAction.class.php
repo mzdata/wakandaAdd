@@ -10,7 +10,7 @@ include_once 'Conf/authorization_config.php';
 // |StoreStat\/delMyData$
 // |StoreStat\/addMyData$
 // |StoreStat\/updateMyData$
-// |StoreStat\/queryList$
+// |StoreStat\/storeLog$
 /*
   id  id 
   tenantCode  租户编码 
@@ -20,6 +20,49 @@ include_once 'Conf/authorization_config.php';
   createdAt  纪录创建时间 */
 
 class StoreStatAction extends  Action {
+
+	
+	public function lookData() {
+		//是否有表权限
+       $idName = "tablename."."store_stat" ;
+        $showTable = Util::getTFAuth($idName)
+;
+
+
+        
+
+		$addpara = $_SERVER['REQUEST_URI'];
+		$addpara = preg_replace('/.*\?/','',$addpara);
+		$_SESSION['addpara'] = $addpara;
+
+        $params                = $_REQUEST["params"];
+
+        $storeStatModel = D("StoreStat");
+        $editData = $storeStatModel->getById($params);
+		$tenant_code=$editData["tenant_code"];
+
+		
+		$ip =   SERVER_DORIS; 
+		$port =     PORT_DORIS; 
+		$user =   USERNAME_DORIS; 
+		$pwd =  PASSWORD_DORIS;
+		$dbName =   "timestone_".$tenant_code; 
+
+		$dbNameStr  = "$ip:$port|".$dbName;  
+		$tableTitle1Arr=array();
+		
+
+		echo "正在计算表结构<br>"; // 输出换行符
+		flush(); // 刷新输出缓冲区，将数据发送给客户端
+
+		$ret1Arr = Util::getTblStruct($user, $pwd ,$dbNameStr,$tableTitleArr );
+		print_r($ret1Arr);
+
+
+		
+		die;
+    }
+
 
 	function storeLog() {
 		set_time_limit(0);

@@ -162,6 +162,11 @@
             window.open ('__APP__/StoreStat/edit?params='+params+"&pageWhere="+pageWhere,'newwindow',"height=600,width=800");
          
 	    }
+        function look_data(params,pageWhere){
+      
+            window.open ('__APP__/StoreStat/lookData?params='+params+"&pageWhere="+pageWhere,'newwindow',"height=600,width=800");
+         
+	    }
 	      function copy_data(params,pageWhere){
       
             window.open ('__APP__/StoreStat/copyData?params='+params+"&pageWhere="+pageWhere,'newwindow',"height=600,width=800");
@@ -311,7 +316,8 @@
 							
 							
 							<td align="center">       
-						             
+						        <a href="javascript:void(0);" class="handle" onclick="look_data( {$oneData.id},'{$pe.pageWhere}'  );">查看表结构</a>
+                              |       
                                 <a href="javascript:void(0);" class="handle" onclick="edit_data( {$oneData.id},'{$pe.pageWhere}'  );">编辑</a>
                               | <a href="javascript:void(0);" class="handle" onclick="copy_data( {$oneData.id} ,'{$pe.pageWhere}' );">复制</a>
                               |  <a class="handle" href="__APP__/StoreStat/delete?id={$oneData.id}" onclick="return confirm(' 确认删除？');" title="点击删除">删除</a>
