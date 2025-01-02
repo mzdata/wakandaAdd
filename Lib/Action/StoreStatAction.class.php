@@ -56,7 +56,30 @@ class StoreStatAction extends  Action {
 		flush(); // 刷新输出缓冲区，将数据发送给客户端
 
 		$ret1Arr = Util::getTblStruct($user, $pwd ,$dbNameStr,$tableTitleArr );
-		print_r($ret1Arr);
+		
+		
+		print '<textarea name="cc" type="text" class="xxlarge" id="cc"    rows=50 cols=20 readonly="readonly" >';
+		foreach($retArr as $tbl => $tblArr)
+		{
+
+			$tblTitle = $tbl;
+			if(isset($tableTitleArr[$tbl])) $tblTitle=$tableTitleArr[$tbl];
+
+	
+			
+			print "#############################\n";
+			print "Tablename	$tbl	".$tblTitle."\n";
+			foreach($tblArr as $f => $fArr)
+			{
+				$COLUMN_TYPE = $fArr["COLUMN_TYPE"];
+				$COLUMN_COMMENT = $fArr["COLUMN_COMMENT"];
+				if(empty($COLUMN_COMMENT ))$COLUMN_COMMENT =$f;
+				print "$f	$COLUMN_TYPE	$COLUMN_COMMENT \n";
+			}
+		}
+
+		print ' </textarea>';
+			
 
 
 		
