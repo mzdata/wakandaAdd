@@ -12,9 +12,9 @@ include_once 'Conf/authorization_config.php';
 class Util {
 
 	public static function EnPwd($password){
-		$command = "\"C:\Program Files\Java\jdk-1.8\bin\java.exe\" -cp D:/wamp7/www/dbAuthAdd/tools/java EnPwd  $password\n"; 
+		$command = "\"C:\Program Files\Java\jdk-1.8\bin\java.exe\" -cp D:/wamp7/www/wakandaAdd/tools/java EnPwd  $password\n"; 
 		if(MYBACKGROUPD>=2){
-			$command="/usr/local/bin/java   -cp /data/dbAuthAdd/tools/java EnPwd  $password\n"; 
+			$command="/usr/local/bin/java   -cp /data/wakandaAdd/tools/java EnPwd  $password\n"; 
 		}
 
 		$output = shell_exec($command);
@@ -23,9 +23,9 @@ class Util {
 
 
 	public static function AppIdAppSecretGenerator($appId){
-		$command = "\"C:\Program Files\Java\jdk-1.8\bin\java.exe\" -cp D:/wamp7/www/dbAuthAdd/tools/java AppIdAppSecretGenerator  $appId\n"; 
+		$command = "\"C:\Program Files\Java\jdk-1.8\bin\java.exe\" -cp D:/wamp7/www/wakandaAdd/tools/java AppIdAppSecretGenerator  $appId\n"; 
 		if(MYBACKGROUPD>=2){
-			$command="/usr/local/bin/java   -cp /data/dbAuthAdd/tools/java AppIdAppSecretGenerator  $appId\n"; 
+			$command="/usr/local/bin/java   -cp /data/wakandaAdd/tools/java AppIdAppSecretGenerator  $appId\n"; 
 		}
 
 		$output = shell_exec($command);

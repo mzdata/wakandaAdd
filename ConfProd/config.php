@@ -56,7 +56,7 @@
         
         'ERROR_MESSAGE' => 'error page~',
         
-        'TITLE'   => 'dbAuth插件系统',
+        'TITLE'   => 'wakanda插件系统',
         'VERSION' => '1.0',
 		
         'INDEX_CONFIG_URL' => 'http://127.0.0.1/get_index_navi_config.php',
