@@ -55,7 +55,7 @@ class StoreStatAction extends  Action {
 		echo "正在计算表结构<br>"; // 输出换行符
 		flush(); // 刷新输出缓冲区，将数据发送给客户端
 
-		$ret1Arr = Util::getTblStruct($user, $pwd ,$dbNameStr,$tableTitleArr );
+		$retArr = Util::getTblStruct($user, $pwd ,$dbNameStr,$tableTitleArr );
 		
 		
 		print '<textarea name="cc" type="text" class="xxlarge" id="cc"    rows=50 cols=20 readonly="readonly" >';
