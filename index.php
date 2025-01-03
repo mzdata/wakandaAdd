@@ -42,7 +42,7 @@ $uri=$deArr[2]."/".$deArr[3];;
 	 .'|TocProject\/checkTocApplicationId$|Movie\/addMovie$|CepingProject\/getFenlei$|CepingProject\/getFenleiList$|CepingProject\/getCeshiData$'
 	 .'|CepingProject\/getCepingResponseStr$|Dining\/addDining$|Dining\/updateXX$'
 	 .'|DrawStat\/drawLine$|DrawStat\/drawBar$|DrawStat\/drawPie$|BiDbSet\/drawOnePic\?'
-	 .'|WxBaseinfo\/addTenant$|WxBaseinfo\/checkPhoneTenant$|WxBaseinfo\/checkUnionId$|StoreStat\/storeLog$'
+	 .'|WxBaseinfo\/addTenant$|WxBaseinfo\/checkPhoneTenant$|WxBaseinfo\/checkUnionId$|StoreStat\/storeLog$|StoreStat\/diffLog$'
 	 .'/',$uri,$match))
     {
 

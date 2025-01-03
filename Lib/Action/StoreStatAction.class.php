@@ -86,6 +86,128 @@ class StoreStatAction extends  Action {
 		die;
     }
 
+	function diffLog() {
+		$statDay = $_REQUEST["statDay"];
+		date_default_timezone_set('PRC');
+		$today = date("Y-m-d",time());
+		$yesterday =  date("Y-m-d",time()-86400);
+		if(empty($statDay)){
+			$statDay=$today;
+		}
+
+		
+		$tbDataassetsStatisticsModel = D("TbDataassetsStatistics");
+
+		
+		$preDay= date("Y-m-d",strtotime($statDay)-86400);
+
+		
+		$year_str= date("Y",strtotime($statDay));
+
+		$storeLogModel = D("StoreLog"); 
+		$storeStatModel = D("StoreStat");
+		$list = $storeStatModel->where("status=1")->select(); 
+
+		foreach ($list as $row) {
+			$tenant_code=$row["tenant_code"];
+			$tenant_code=trim($tenant_code);
+			$biz_list = $row["biz_list"];
+			$bizArr = preg_split('/\r|\n/',$biz_list,-1,PREG_SPLIT_NO_EMPTY);
+
+
+			print "start tenant_code=$tenant_code\n";
+			$resultArr = array();
+			$destArr = array();
+			
+
+			$tmpList = $storeLogModel->where("tenant_code='$tenant_code' and  DATE_FORMAT(created_at, '%Y-%m-%d')='$statDay'")->select();
+ 
+
+			foreach($tmpList as $row2) {
+				$tenant_code=$row2["tenant_code"]; 
+				$table_name=$row2["table_name"];
+				$storage=$row2["storage"];
+				$rows_number=$row2["rows_number"]; 
+				$resultArr[$table_name]["storage"]=$storage;
+				$resultArr[$table_name]["rows_number"]=$rows_number; 
+
+
+			}
+
+			
+			$preList = $storeLogModel->where("tenant_code='$tenant_code' and  DATE_FORMAT(created_at, '%Y-%m-%d')='$preDay'")->select();
+
+			foreach($preList as $row2) {
+				$tenant_code=$row2["tenant_code"]; 
+				$table_name=$row2["table_name"];
+				$storage=$row2["storage"];
+				$rows_number=$row2["rows_number"]; 
+				$resultArr[$table_name]["storage"]-=$storage;
+				$resultArr[$table_name]["rows_number"]-=$rows_number; 
+
+
+			}
+
+			//print_r($resultArr);
+
+			foreach($bizArr as $line){
+				$lineArr = preg_split('/\=/',$line,-1,PREG_SPLIT_NO_EMPTY);
+				$biz_name=$lineArr[0];
+				$biz_table=$lineArr[1];
+				$bizTableArr = preg_split('/\,/',$biz_table,-1,PREG_SPLIT_NO_EMPTY);
+				$destArr[$biz_name]["md5"]=md5($line); 
+				foreach($bizTableArr as $tbl){	
+					if(isset($resultArr[$tbl])){
+						$storage=$resultArr[$tbl]["storage"];
+						$rows_number=$resultArr[$tbl]["rows_number"]; 
+						$destArr[$biz_name]["storage"]+=$storage;
+						$destArr[$biz_name]["rows_number"]+=$rows_number; 
+						
+
+					}
+				}
+
+			}
+
+			print_r($destArr);
+
+			foreach($destArr as $biz_name=>$row2){
+				$storage=$row2["storage"];
+				$rows_number=$row2["rows_number"]; 
+				$md5str=$row2["md5"]; 
+
+				$count=$tbDataassetsStatisticsModel->where("tenant_code='$tenant_code' and biz_tag='$biz_name' and date_str='$statDay'")->count();
+ 
+
+				if($count==0){
+					$data = array();
+
+
+					$data["tenant_code"] =$tenant_code;
+					$data["biz_tag"] = $biz_name;
+					$data["table_name"] = $md5str; 
+					$data["table_type"] = "di"; 
+					$data["date_str"] = $statDay;
+					$data["year_str"] = $year_str;
+					$data["storage"] = $storage;
+					$data["number"] = $rows_number;
+					$data["update_time"] =  date("Y-m-d H:i:s");  
+
+
+
+					$su =  $tbDataassetsStatisticsModel->data($data)->add();
+				}
+
+			}
+			
+
+	
+		}
+
+
+
+
+	}
 
 	function storeLog() {
 		set_time_limit(0);
@@ -100,9 +222,9 @@ class StoreStatAction extends  Action {
 		$resultArr = array();
 		foreach ($list as $row) {
 
-			print "start tenant_code=$tenant_code\n";
 			$tenant_code=$row["tenant_code"];
 			$tenant_code=trim($tenant_code);
+			print "start tenant_code=$tenant_code\n";
 
 			$sql="SELECT 
     table_schema AS 'doris_db',
