@@ -172,7 +172,7 @@ class StoreStatAction extends  Action {
 			print_r($destArr);
 
 			foreach($destArr as $biz_name=>$row2){
-				$storage=$row2["storage"]*1024*1024;
+				$storage=$row2["storage"]*1024;
 				$rows_number=$row2["rows_number"]; 
 				$md5str=$row2["md5"]; 
 
