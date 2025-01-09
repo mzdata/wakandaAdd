@@ -40,7 +40,7 @@ $uri=$deArr[2]."/".$deArr[3];;
 	 .'|GprpProject\/checkGpfxApplicationId$|GprpProject\/getGpfx$|GprpProject\/updateGpfxResponse$'
 	 .'|PptProject\/getPwModelByName$|TocProject\/addTocAssistant$|TocAssistant\/checkTocAssistantId$|TocProject\/addTocApp$|Movie\/searchOneRow$'
 	 .'|TocProject\/checkTocApplicationId$|Movie\/addMovie$|CepingProject\/getFenlei$|CepingProject\/getFenleiList$|CepingProject\/getCeshiData$'
-	 .'|CepingProject\/getCepingResponseStr$|Dining\/addDining$|Dining\/updateXX$'
+	 .'|CepingProject\/getCepingResponseStr$|Dining\/addDining$|Dining\/updateXX$|StoreStat\/lookData$'
 	 .'|DrawStat\/drawLine$|DrawStat\/drawBar$|DrawStat\/drawPie$|BiDbSet\/drawOnePic\?'
 	 .'|WxBaseinfo\/addTenant$|WxBaseinfo\/checkPhoneTenant$|WxBaseinfo\/checkUnionId$|StoreStat\/storeLog$|StoreStat\/diffLog$'
 	 .'/',$uri,$match))

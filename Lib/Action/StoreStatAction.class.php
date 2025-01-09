@@ -10,7 +10,7 @@ include_once 'Conf/authorization_config.php';
 // |StoreStat\/delMyData$
 // |StoreStat\/addMyData$
 // |StoreStat\/updateMyData$
-// |StoreStat\/storeLog$
+// |StoreStat\/lookData$
 /*
   id  id 
   tenantCode  租户编码 
@@ -93,16 +93,14 @@ class StoreStatAction extends  Action {
 		$yesterday =  date("Y-m-d",time()-86400);
 		if(empty($statDay)){
 			$statDay=$today;
-		}
-
-		
-		$tbDataassetsStatisticsModel = D("TbDataassetsStatistics");
-
-		
+		} 
 		$preDay= date("Y-m-d",strtotime($statDay)-86400);
 
 		
 		$year_str= date("Y",strtotime($statDay));
+
+		
+		$tbDataassetsStatisticsModel = D("TbDataassetsStatistics");
 
 		$storeLogModel = D("StoreLog"); 
 		$storeStatModel = D("StoreStat");
